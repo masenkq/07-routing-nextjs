@@ -6,16 +6,21 @@ export const metadata = {
   description: 'Your personal note taking app',
 };
 
+interface RootLayoutProps {
+  children: React.ReactNode;
+  modal: React.ReactNode;
+}
+
 export default function RootLayout({
   children,
-}: {
-  children: React.ReactNode;
-}) {
+  modal,
+}: RootLayoutProps) {
   return (
     <html lang="en">
       <body>
         <Providers>
           {children}
+          {modal}
         </Providers>
       </body>
     </html>

@@ -17,12 +17,12 @@
     "beforeFiles": [
       {
         "source": "/notes/:id",
-        "destination": "/notes/(.):id",
+        "destination": "/(.)notes/:id",
         "has": [
           {
             "type": "header",
             "key": "next-url",
-            "value": "\\/notes(?:\\/(.*))?[\\/#\\?]?"
+            "value": "(?:\\/(.*))?[\\/#\\?]?"
           }
         ],
         "regex": "^/notes(?:/([^/]+?))(?:/)?$"
@@ -33,12 +33,12 @@
   },
   "dynamicRoutes": [
     {
-      "page": "/notes/(.)[id]",
-      "regex": "^/notes/\\(\\.\\)([^/]+?)(?:/)?$",
+      "page": "/(.)notes/[id]",
+      "regex": "^/\\(\\.\\)notes/([^/]+?)(?:/)?$",
       "routeKeys": {
-        "nxtIid": "nxtIid"
+        "nxtPid": "nxtPid"
       },
-      "namedRegex": "^/notes/\\(\\.\\)(?<nxtIid>[^/]+?)(?:/)?$"
+      "namedRegex": "^/\\(\\.\\)notes/(?<nxtPid>[^/]+?)(?:/)?$"
     },
     {
       "page": "/notes/filter/[...slug]",
@@ -47,6 +47,14 @@
         "nxtPslug": "nxtPslug"
       },
       "namedRegex": "^/notes/filter/(?<nxtPslug>.+?)(?:/)?$"
+    },
+    {
+      "page": "/notes/[id]",
+      "regex": "^/notes/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/notes/(?<nxtPid>[^/]+?)(?:/)?$"
     }
   ],
   "staticRoutes": [
