@@ -1,5 +1,5 @@
 import Providers from './providers';
-import './global.css';
+import './globals.css';
 
 export const metadata = {
   title: 'NoteHub',
@@ -8,7 +8,7 @@ export const metadata = {
 
 interface RootLayoutProps {
   children: React.ReactNode;
-  modal: React.ReactNode;
+  modal: React.ReactNode; // ← обов'язковий, без ?
 }
 
 export default function RootLayout({

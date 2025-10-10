@@ -57,7 +57,7 @@ export interface PageProps {
 }
 export interface LayoutProps {
   children?: React.ReactNode
-  sidebar: React.ReactNode
+
   params?: Promise<SegmentParams>
 }
 

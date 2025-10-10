@@ -22,7 +22,7 @@ export type ParamsOf<Route extends Routes> = ParamMap[Route]
 
 interface LayoutSlotMap {
   "/": "modal"
-  "/notes": "sidebar"
+  "/notes": never
 }
 
 

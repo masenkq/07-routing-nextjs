@@ -1,8 +1,8 @@
 {
   "/_not-found/page": "/_not-found",
-  "/page": "/",
   "/@modal/(.)notes/[id]/page": "/(.)notes/[id]",
+  "/page": "/",
   "/notes/[id]/page": "/notes/[id]",
-  "/notes/create/page": "/notes/create",
-  "/notes/filter/[...slug]/page": "/notes/filter/[...slug]"
+  "/notes/filter/[...slug]/page": "/notes/filter/[...slug]",
+  "/notes/create/page": "/notes/create"
 }
