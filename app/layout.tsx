@@ -1,28 +1,14 @@
-﻿import Providers from "./providers";
-import "./globals.css";
+﻿import "./globals.css"
 
 export const metadata = {
   title: "NoteHub",
   description: "Your personal note taking app",
-};
-
-interface RootLayoutProps {
-  children: React.ReactNode;
-  modal?: React.ReactNode;
 }
 
-export default function RootLayout({
-  children,
-  modal,
-}: RootLayoutProps) {
+export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>
-        <Providers>
-          {children}
-          {modal}
-        </Providers>
-      </body>
+      <body>{children}</body>
     </html>
-  );
+  )
 }

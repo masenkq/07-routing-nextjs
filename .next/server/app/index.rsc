@@ -1,0 +1,5 @@
+2:I[4707,[],""]
+3:I[6423,[],""]
+0:["pIrDKGQsc4QSp1XU1IxO2",[[["",{"children":["__PAGE__",{}]},"$undefined","$undefined",true],["",{"children":["__PAGE__",{},[["$L1",["$","div",null,{"children":"Home Page"}],null],null],null]},[[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/d48ba1b4c152ef4a.css","precedence":"next","crossOrigin":"$undefined"}]],["$","html",null,{"lang":"en","children":["$","body",null,{"children":["$","$L2",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L3",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":["$","div",null,{"children":"404 - Page Not Found"}],"notFoundStyles":[]}]}]}]],null],null],["$L4",null]]]]
+4:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","1",{"charSet":"utf-8"}],["$","title","2",{"children":"NoteHub"}],["$","meta","3",{"name":"description","content":"Your personal note taking app"}]]
+1:null
