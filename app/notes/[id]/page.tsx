@@ -1,15 +1,11 @@
-import NotePreview from '@/components/NotePreview/NotePreview';
+import NoteDetailsClient from "./NoteDetails.client";
 
 interface PageProps {
-  params: Promise<{ id: string }>;
+  params: {
+    id: string;
+  };
 }
 
-export default async function NotePage({ params }: PageProps) {
-  const { id } = await params;
-  
-  return (
-    <div style={{ padding: '2rem' }}>
-      <NotePreview noteId={id} />
-    </div>
-  );
+export default function NotePage({ params }: PageProps) {
+  return <NoteDetailsClient noteId={params.id} />;
 }
