@@ -1,33 +1,35 @@
-'use client';
+'use client'
 
-import { useRouter } from 'next/navigation';
-import { useMutation } from '@tanstack/react-query';
-import axios from 'axios';
-import NoteForm from '@/components/NoteForm/NoteForm';
-import { CreateNoteData } from '@/types/note';
-import css from './CreateNote.module.css';
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 
 export default function CreateNotePage() {
-  const router = useRouter();
+  const router = useRouter()
+  const [isLoading, setIsLoading] = useState(false)
 
-  const createMutation = useMutation({
-    mutationFn: (data: CreateNoteData) => axios.post('/api/notes', data),
-    onSuccess: () => {
-      router.push('/notes/filter/All');
-    },
-  });
-
-  const handleSubmit = (data: CreateNoteData) => {
-    createMutation.mutate(data);
-  };
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsLoading(true)
+    router.push('/notes/filter/All')
+    setIsLoading(false)
+  }
 
   return (
-    <div className={css.container}>
-      <h1 className={css.title}>Create New Note</h1>
-      <NoteForm 
-        onSubmit={handleSubmit}
-        isLoading={createMutation.isPending}
-      />
+    <div>
+      <h1>Create New Note</h1>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label>Title</label>
+          <input type="text" required />
+        </div>
+        <div>
+          <label>Content</label>
+          <textarea required />
+        </div>
+        <button type="submit" disabled={isLoading}>
+          {isLoading ? 'Creating...' : 'Create Note'}
+        </button>
+      </form>
     </div>
-  );
+  )
 }

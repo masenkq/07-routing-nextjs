@@ -1,23 +1,18 @@
 import Link from 'next/link';
-import css from './page.module.css';
 
 export default function HomePage() {
   return (
-    <div className={css.container}>
-      <main className={css.main}>
-        <h1 className={css.title}>Welcome to NoteHub</h1>
-        <p className={css.description}>
-          Your personal note taking application
-        </p>
-        <div className={css.buttons}>
-          <Link href="/notes/filter/All" className={css.button}>
-            View All Notes
-          </Link>
-          <Link href="/notes/create" className={css.button}>
-            Create New Note
-          </Link>
-        </div>
-      </main>
+    <div style={{ padding: '2rem', textAlign: 'center' }}>
+      <h1>Welcome to NoteHub</h1>
+      <p>Your personal note taking application</p>
+      <div style={{ marginTop: '2rem' }}>
+        <Link href="/notes/filter/All" style={{ marginRight: '1rem' }}>
+          View All Notes
+        </Link>
+        <Link href="/notes/create">
+          Create New Note
+        </Link>
+      </div>
     </div>
   );
 }

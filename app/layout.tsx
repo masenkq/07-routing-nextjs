@@ -1,14 +1,14 @@
-import Providers from './providers';
-import './globals.css';
+﻿import Providers from "./providers";
+import "./globals.css";
 
 export const metadata = {
-  title: 'NoteHub',
-  description: 'Your personal note taking app',
+  title: "NoteHub",
+  description: "Your personal note taking app",
 };
 
 interface RootLayoutProps {
   children: React.ReactNode;
-  modal: React.ReactNode; // ← обов'язковий, без ?
+  modal?: React.ReactNode;
 }
 
 export default function RootLayout({

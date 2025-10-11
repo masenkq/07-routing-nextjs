@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { CreateNoteData } from '@/types/note';
-import css from './NoteForm.module.css';
 
 interface NoteFormProps {
   onSubmit: (data: CreateNoteData) => void;
@@ -12,58 +11,54 @@ interface NoteFormProps {
 export default function NoteForm({ onSubmit, isLoading = false }: NoteFormProps) {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const [tags, setTags] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
-    const noteData: CreateNoteData = {
-      title,
-      content,
-      tags: tags ? tags.split(',').map(tag => tag.trim()) : undefined
-    };
-    
-    onSubmit(noteData);
+    onSubmit({ title, content });
   };
 
   return (
-    <form onSubmit={handleSubmit} className={css.form}>
-      <div className={css.field}>
-        <label htmlFor="title" className={css.label}>Title</label>
+    <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+      <div>
+        <label htmlFor="title" style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>
+          Title
+        </label>
         <input
           type="text"
           id="title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className={css.input}
+          style={{ width: '100%', padding: '0.5rem', border: '1px solid #ccc', borderRadius: '4px' }}
           required
         />
       </div>
       
-      <div className={css.field}>
-        <label htmlFor="content" className={css.label}>Content</label>
+      <div>
+        <label htmlFor="content" style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>
+          Content
+        </label>
         <textarea
           id="content"
           value={content}
           onChange={(e) => setContent(e.target.value)}
-          className={css.textarea}
+          style={{ width: '100%', padding: '0.5rem', border: '1px solid #ccc', borderRadius: '4px', minHeight: '150px' }}
           required
         />
       </div>
       
-      <div className={css.field}>
-        <label htmlFor="tags" className={css.label}>Tags (comma separated)</label>
-        <input
-          type="text"
-          id="tags"
-          value={tags}
-          onChange={(e) => setTags(e.target.value)}
-          className={css.input}
-          placeholder="Work, Personal, Ideas"
-        />
-      </div>
-      
-      <button type="submit" disabled={isLoading} className={css.button}>
+      <button 
+        type="submit" 
+        disabled={isLoading}
+        style={{ 
+          background: '#007acc', 
+          color: 'white', 
+          border: 'none', 
+          padding: '0.75rem 1.5rem', 
+          borderRadius: '4px',
+          cursor: isLoading ? 'not-allowed' : 'pointer',
+          opacity: isLoading ? 0.6 : 1
+        }}
+      >
         {isLoading ? 'Creating...' : 'Create Note'}
       </button>
     </form>
