@@ -1,5 +1,4 @@
-import Modal from "@/components/Modal/Modal";
-import NotePreviewClient from "./NotePreview.client";
+import NoteDetailsClient from "./NoteDetails.client";
 
 interface PageProps {
   params: {
@@ -7,10 +6,6 @@ interface PageProps {
   };
 }
 
-export default function NoteModalPage({ params }: PageProps) {
-  return (
-    <Modal>
-      <NotePreviewClient noteId={params.id} />
-    </Modal>
-  );
+export default function NotePage({ params }: PageProps) {
+  return <NoteDetailsClient noteId={params.id} />;
 }
