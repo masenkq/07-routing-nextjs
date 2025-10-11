@@ -1,17 +1,16 @@
-
-import Modal from "@/components/Modal/Modal"
-import NotePreview from "@/components/NotePreview/NotePreview"
+import Modal from "@/components/Modal/Modal";
+import NotePreviewClient from "./NotePreview.client";
 
 interface PageProps {
   params: {
-    id: string
-  }
+    id: string;
+  };
 }
 
 export default function NoteModalPage({ params }: PageProps) {
   return (
     <Modal>
-      <NotePreview noteId={params.id} />
+      <NotePreviewClient noteId={params.id} />
     </Modal>
-  )
+  );
 }

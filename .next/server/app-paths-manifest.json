@@ -1,5 +1,6 @@
 {
   "/_not-found/page": "app/_not-found/page.js",
+  "/@modal/(.)notes/[id]/page": "app/@modal/(.)notes/[id]/page.js",
   "/page": "app/page.js",
   "/notes/create/page": "app/notes/create/page.js",
   "/notes/[id]/page": "app/notes/[id]/page.js",
