@@ -2,6 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/lib/api";
+import { useRouter } from "next/navigation";
 
 interface NotePreviewClientProps {
   noteId: string;
@@ -16,13 +17,20 @@ interface Note {
 }
 
 export default function NotePreviewClient({ noteId }: NotePreviewClientProps) {
+  const router = useRouter();
+  
   const { data: note, isLoading, error } = useQuery({
     queryKey: ["note", noteId],
     queryFn: async (): Promise<Note> => {
       const response = await api.notes.getById(noteId);
       return response.data;
     },
+    refetchOnMount: true, // Додано refetchOnMount
   });
+
+  const handleClose = () => {
+    router.back(); // Закриття модального вікна
+  };
 
   if (isLoading) return <div>Loading note...</div>;
   if (error) return <div>Error loading note</div>;
@@ -30,6 +38,35 @@ export default function NotePreviewClient({ noteId }: NotePreviewClientProps) {
 
   return (
     <div>
+      {/* Кнопка закриття */}
+      <button 
+        onClick={handleClose}
+        style={{
+          position: "absolute",
+          top: "0.5rem",
+          right: "0.5rem",
+          background: "none",
+          border: "none",
+          fontSize: "1.5rem",
+          cursor: "pointer",
+          width: "30px",
+          height: "30px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          borderRadius: "50%",
+          transition: "background-color 0.2s",
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.backgroundColor = "#f5f5f5";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.backgroundColor = "transparent";
+        }}
+      >
+        ×
+      </button>
+      
       <h1>{note.title}</h1>
       <div style={{ 
         display: "flex", 

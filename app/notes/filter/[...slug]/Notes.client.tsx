@@ -18,6 +18,7 @@ export default function NotesClient({ tag }: NotesClientProps) {
       const response = await axios.get('/api/notes', { params });
       return response.data;
     },
+    refetchOnMount: true,
   });
 
   if (isLoading) return <div className={css.loading}>Loading...</div>;

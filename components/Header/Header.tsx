@@ -1,21 +1,26 @@
-import Link from 'next/link';
-import TagsMenu from '../TagsMenu/TagsMenu';
-import css from './Header.module.css';
+// components/Header/Header.tsx
+import Link from "next/link";
 
 export default function Header() {
   return (
-    <header className={css.header}>
-      <div className={css.container}>
-        <Link href="/" className={css.logo}>
-          NoteHub
+    <header style={{
+      padding: "1rem 2rem",
+      borderBottom: "1px solid #eee",
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center"
+    }}>
+      <Link href="/" style={{ fontSize: "1.5rem", fontWeight: "bold" }}>
+        NoteHub
+      </Link>
+      <nav>
+        <Link href="/notes/filter/All" style={{ marginRight: "1rem" }}>
+          Notes
         </Link>
-        <nav className={css.nav}>
-          <TagsMenu />
-          <Link href="/notes/create" className={css.link}>
-            Create Note
-          </Link>
-        </nav>
-      </div>
+        <Link href="/notes/create">
+          Create Note
+        </Link>
+      </nav>
     </header>
   );
 }
