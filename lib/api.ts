@@ -2,22 +2,27 @@
 import { Note, CreateNoteData, UpdateNoteData } from '@/types/note';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api';
+const API_TOKEN = process.env.NEXT_PUBLIC_API_TOKEN;
 
-// Створюємо екземпляр axios з базовими налаштуваннями
 const apiClient = axios.create({
   baseURL: API_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
-    // Додайте заголовок авторизації, якщо потрібно
-    // 'Authorization': `Bearer ${token}`
+    ...(API_TOKEN && { 'Authorization': `Bearer ${API_TOKEN}` })
   },
 });
 
+interface NotesResponse {
+  notes: Note[];
+  totalPages: number;
+}
+
 export const api = {
-  // Notes API
   notes: {
-    getAll: (tag?: string) => 
-      apiClient.get<Note[]>(`/notes`, { params: { tag } }),
+    getAll: (tag?: string, search?: string, page?: number, limit?: number) => 
+      apiClient.get<NotesResponse>(`/notes`, { 
+        params: { tag, search, page, limit } 
+      }),
     
     getById: (id: string) => 
       apiClient.get<Note>(`/notes/${id}`),
@@ -29,6 +34,6 @@ export const api = {
       apiClient.patch<Note>(`/notes/${id}`, data),
     
     delete: (id: string) => 
-      apiClient.delete<void>(`/notes/${id}`),
+      apiClient.delete<Note>(`/notes/${id}`),
   },
 };

@@ -1,21 +1,9 @@
-'use client';
-
-import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import css from './SideBarNotes.module.css';
 
 const tags = ['All', 'Work', 'Personal', 'Ideas', 'Important'];
 
 export default function DefaultSidebar() {
-  const pathname = usePathname();
-
-  const getTagFromPath = (path: string) => {
-    const match = path.match(/\/notes\/filter\/(.+)/);
-    return match ? match[1] : 'All';
-  };
-
-  const currentTag = getTagFromPath(pathname);
-
   return (
     <aside className={css.sidebar}>
       <h3 className={css.title}>Filter by Tag</h3>
@@ -28,9 +16,7 @@ export default function DefaultSidebar() {
                   ? '/notes/filter/All' 
                   : `/notes/filter/${tag}`
               }
-              className={`${css.menuLink} ${
-                currentTag === tag ? css.menuLinkActive : ''
-              }`}
+              className={css.menuLink}
             >
               {tag}
             </Link>

@@ -1,5 +1,5 @@
-// components/Header/Header.tsx
 import Link from "next/link";
+import TagsMenu from "@/components/TagsMenu/TagsMenu";
 
 export default function Header() {
   return (
@@ -13,10 +13,8 @@ export default function Header() {
       <Link href="/" style={{ fontSize: "1.5rem", fontWeight: "bold" }}>
         NoteHub
       </Link>
-      <nav>
-        <Link href="/notes/filter/All" style={{ marginRight: "1rem" }}>
-          Notes
-        </Link>
+      <nav style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+        <TagsMenu />
         <Link href="/notes/create">
           Create Note
         </Link>
