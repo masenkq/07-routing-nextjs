@@ -1,7 +1,8 @@
 ﻿import axios from 'axios';
 import { Note, CreateNoteData, UpdateNoteData } from '@/types/note';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api';
+//const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || '/api';
 const API_TOKEN = process.env.NEXT_PUBLIC_API_TOKEN;
 
 const apiClient = axios.create({
