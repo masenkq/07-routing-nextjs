@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
 
-// Dočasné úložiště dat v paměti
 let notes = [
   {
     id: '1',
@@ -9,40 +8,15 @@ let notes = [
     tags: ['Todo'],
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
-  },
-  {
-    id: '2', 
-    title: 'Druhá poznámka',
-    content: 'Obsah druhé poznámky',
-    tags: ['Work'],
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
   }
 ];
 
+// Přidejte GET metodu
 export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
-  const tag = searchParams.get('tag');
-  const page = parseInt(searchParams.get('page') || '1');
-  const limit = 10;
-
-  console.log('API called with tag:', tag, 'page:', page);
-
-  // Filtrování podle tagu
-  let filteredNotes = notes;
-  if (tag) {
-    filteredNotes = notes.filter(note => 
-      note.tags.includes(tag)
-    );
-  }
-
-  // Paginace
-  const startIndex = (page - 1) * limit;
-  const paginatedNotes = filteredNotes.slice(startIndex, startIndex + limit);
-
-  return NextResponse.json({
-    notes: paginatedNotes,
-    totalPages: Math.ceil(filteredNotes.length / limit)
+  // Vrátíme prázdnou odpověď nebo nějaká data pro formulář
+  return NextResponse.json({ 
+    message: 'Create endpoint - use POST to create a note',
+    fields: ['title', 'content', 'tags'] 
   });
 }
 
