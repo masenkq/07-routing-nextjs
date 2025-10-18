@@ -15,8 +15,9 @@ export default async function NoteModalPage({ params }: PageProps) {
   await queryClient.prefetchQuery({
     queryKey: ["note", id],
     queryFn: async () => {
+      // ✅ Видалено .data - API тепер повертає безпосередньо дані
       const response = await api.notes.getById(id);
-      return response.data;
+      return response; // Без .data
     },
   });
 

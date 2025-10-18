@@ -1,68 +1,44 @@
-﻿"use client"
-
-import { useRouter } from "next/navigation"
-import { useEffect, useRef } from "react"
+﻿'use client';
 
 interface ModalProps {
-  children: React.ReactNode
+  children: React.ReactNode;
+  isOpen: boolean;
+  onClose: () => void;
 }
 
-export default function Modal({ children }: ModalProps) {
-  const router = useRouter()
-  const dialogRef = useRef<HTMLDialogElement>(null)
-
-  useEffect(() => {
-    if (dialogRef.current) {
-      dialogRef.current.showModal()
-      
-      const handleKeyDown = (e: KeyboardEvent) => {
-        if (e.key === "Escape") {
-          router.back()
-        }
-      }
-
-      document.addEventListener("keydown", handleKeyDown)
-      return () => document.removeEventListener("keydown", handleKeyDown)
-    }
-  }, [router])
+export default function Modal({ children, isOpen, onClose }: ModalProps) {
+  if (!isOpen) return null;
 
   return (
-    <dialog 
-      ref={dialogRef} 
-      className="modal"
-      onClose={() => router.back()}
+    <div 
       style={{
-        border: "none",
-        borderRadius: "8px",
-        padding: "0",
-        background: "transparent",
-        maxWidth: "90vw",
-        maxHeight: "90vh"
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: 1000,
       }}
+      onClick={onClose}
     >
-      <div style={{
-        position: "relative",
-        background: "white",
-        borderRadius: "8px",
-        padding: "2rem",
-        minWidth: "400px"
-      }}>
-        <button 
-          onClick={() => router.back()}
-          style={{
-            position: "absolute",
-            top: "0.5rem",
-            right: "0.5rem",
-            background: "none",
-            border: "none",
-            fontSize: "1.5rem",
-            cursor: "pointer"
-          }}
-        >
-          ×
-        </button>
+      <div 
+        style={{
+          background: 'white',
+          padding: '2rem',
+          borderRadius: '8px',
+          maxWidth: '500px',
+          width: '90%',
+          maxHeight: '80vh',
+          overflow: 'auto',
+        }}
+        onClick={(e) => e.stopPropagation()}
+      >
         {children}
       </div>
-    </dialog>
-  )
+    </div>
+  );
 }

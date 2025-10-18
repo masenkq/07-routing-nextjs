@@ -8,8 +8,10 @@ interface PageProps {
 export default async function NoteModalPage({ params }: PageProps) {
   const { id } = await params;
   
+  // Для серверного компонента не можна використовувати onClose через router
+  // Краще використовувати клієнтський компонент для модального вікна
   return (
-    <Modal>
+    <Modal isOpen={true} onClose={() => {}}>
       <NotePreview noteId={id} />
     </Modal>
   );

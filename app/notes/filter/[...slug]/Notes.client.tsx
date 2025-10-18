@@ -4,7 +4,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { useState, useCallback, useEffect } from 'react';
 import { Note, CreateNoteData } from '@/types/note';
-import NoteCard from '@/components/NoteCard/NoteCard';
+import NoteList from '@/components/NoteList/NoteList';
 import NoteForm from '@/components/NoteForm/NoteForm';
 import css from './Notes.module.css';
 
@@ -12,7 +12,7 @@ interface NotesClientProps {
   tag?: string;
 }
 
-// Простий SearchBox компонент
+// SearchBox компонент
 function SearchBox({ value, onChange, placeholder }: { 
   value: string; 
   onChange: (value: string) => void;
@@ -31,7 +31,7 @@ function SearchBox({ value, onChange, placeholder }: {
   );
 }
 
-// Простий Pagination компонент
+// Pagination компонент
 function Pagination({ currentPage, totalPages, onPageChange }: {
   currentPage: number;
   totalPages: number;
@@ -62,16 +62,17 @@ function Pagination({ currentPage, totalPages, onPageChange }: {
   );
 }
 
-// Простий Modal компонент
-function Modal({ children, isOpen }: {
+// Modal компонент, який приймає onClose
+function Modal({ children, isOpen, onClose }: {
   children: React.ReactNode;
   isOpen: boolean;
+  onClose: () => void;
 }) {
   if (!isOpen) return null;
 
   return (
-    <div className={css.modalOverlay}>
-      <div className={css.modal}>
+    <div className={css.modalOverlay} onClick={onClose}>
+      <div className={css.modal} onClick={(e) => e.stopPropagation()}>
         {children}
       </div>
     </div>
@@ -89,7 +90,7 @@ export default function NotesClient({ tag }: NotesClientProps) {
   useEffect(() => {
     const timer = setTimeout(() => {
       setDebouncedSearchQuery(searchQuery);
-      setPage(1); // Скидаємо на першу сторінку при новому пошуку
+      setPage(1);
     }, 300);
 
     return () => clearTimeout(timer);
@@ -116,9 +117,7 @@ export default function NotesClient({ tag }: NotesClientProps) {
       return response.data;
     },
     onSuccess: () => {
-      // Закриваємо модальне вікно
       setIsModalOpen(false);
-      // Інвалідуємо запит нотаток для оновлення списку
       queryClient.invalidateQueries({ queryKey: ['notes'] });
     },
   });
@@ -171,11 +170,8 @@ export default function NotesClient({ tag }: NotesClientProps) {
         />
       </div>
 
-      <div className={css.notesGrid}>
-        {notes.map((note) => (
-          <NoteCard key={note.id} note={note} />
-        ))}
-      </div>
+      {/* ✅ Використовуємо NoteList замість прямого рендеру NoteCard */}
+      <NoteList notes={notes} />
 
       {notes.length === 0 && (
         <p className={css.empty}>
@@ -193,7 +189,8 @@ export default function NotesClient({ tag }: NotesClientProps) {
         </div>
       )}
 
-      <Modal isOpen={isModalOpen}>
+      {/* ✅ Modal отримує onClose через пропси */}
+      <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
         <div className={css.modalContent}>
           <div className={css.modalHeader}>
             <h2>Create New Note</h2>
@@ -205,9 +202,11 @@ export default function NotesClient({ tag }: NotesClientProps) {
             </button>
           </div>
           <div className={css.modalBody}>
+            {/* ✅ NoteForm отримує onClose через пропси */}
             <NoteForm
               onSubmit={handleNoteSubmit}
               isLoading={createNoteMutation.isPending}
+              onClose={handleCloseModal}
             />
           </div>
         </div>
